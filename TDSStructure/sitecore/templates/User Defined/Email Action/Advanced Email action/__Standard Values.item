@@ -1,0 +1,92 @@
+----item----
+version: 1
+id: {92512D11-4058-4789-9298-E518620AB239}
+database: master
+path: /sitecore/templates/User Defined/Email Action/Advanced Email action/__Standard Values
+parent: {98F99139-CD1F-46C2-B2A3-FA467A1579E2}
+name: __Standard Values
+master: {00000000-0000-0000-0000-000000000000}
+template: {98F99139-CD1F-46C2-B2A3-FA467A1579E2}
+templatekey: Advanced Email action
+
+----field----
+field: {48F69632-F0B7-4BF9-84D3-3FEE699BADBD}
+name: Message
+key: message
+content-length: 613
+
+<h1>$itemtitle$</h1>
+<hr />
+<p>$itemdatetime$</p>
+<p>
+$itemtitle$ item has been moved to the $itemworkflowstate$ state of the $itemworkflowname$ workflow by $itemuser$ with the following comment:
+</p>
+<ul>
+    <li>$itemcomment$</li>
+</ul>
+<p>
+$itempath$,<br />
+$itemlanguage$, Version $itemversion$
+</p>
+<h2>What do you want to do with $itemtitle$:</h2>
+<ul>
+    <li><a href="$submitlink$">Submit</a> or <a href="$submitcommentlink$">Submit &amp; Comment</a></li>
+    <li><a href="$editlink$">Edit it</a></li>
+</ul>
+<a href="$previewlink$">Preview the webpage</a>
+<h2>Workflow history:</h2>
+$workflowhistorytable$
+----field----
+field: {FB3D508A-969C-4A5A-AB75-8181A8FAAB60}
+name: Type
+key: type
+content-length: 77
+
+MikeRobbins.AdvancedEmailAction.EmailCommand, MikeRobbins.AdvancedEmailAction
+----version----
+language: en
+version: 1
+revision: 1e997ece-101c-4cd3-ae7f-bb3ab6154212
+
+----field----
+field: {52807595-0F8F-4B20-8D2A-CB71D28C6103}
+name: __Owner
+key: __owner
+content-length: 14
+
+sitecore\admin
+----field----
+field: {25BED78C-4957-4165-998A-CA1B52F67497}
+name: __Created
+key: __created
+content-length: 15
+
+20131112T122657
+----field----
+field: {5DD74568-4D4B-44C1-B513-0AF5F4CDA34F}
+name: __Created by
+key: __created by
+content-length: 14
+
+sitecore\admin
+----field----
+field: {8CDC337E-A112-42FB-BBB4-4143751E123F}
+name: __Revision
+key: __revision
+content-length: 36
+
+1e997ece-101c-4cd3-ae7f-bb3ab6154212
+----field----
+field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
+name: __Updated
+key: __updated
+content-length: 34
+
+20140521T091254:635362603740106905
+----field----
+field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
+name: __Updated by
+key: __updated by
+content-length: 18
+
+ad\michael.robbins
