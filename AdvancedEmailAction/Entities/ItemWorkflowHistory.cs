@@ -5,9 +5,9 @@ namespace MikeRobbins.AdvancedEmailAction.Entities
     public class ItemWorkflowHistory
     {
         public DateTime ItemDateTime { get; set; }
-        public String User { get; set; }
-        public String PreviousState { get; set; }
-        public String CurrentState { get; set; }
-        public String Comment { get; set; }
+        public string User { get; set; }
+        public string PreviousState { get; set; }
+        public string CurrentState { get; set; }
+        public string Comment { get; set; }
     }
 }

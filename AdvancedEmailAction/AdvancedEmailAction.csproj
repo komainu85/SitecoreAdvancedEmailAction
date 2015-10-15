@@ -66,6 +66,7 @@
     <Compile Include="Entities\WorkflowHistoryItem.cs" />
     <Compile Include="MailMessageRespository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SiteProvider.cs" />
     <Compile Include="Tools.cs" />
     <Compile Include="Repositories\WorkflowRepository.cs" />
     <Compile Include="WorkflowHistory.cs" />

@@ -5,6 +5,7 @@ using MikeRobbins.AdvancedEmailAction.Entities;
 using MikeRobbins.AdvancedEmailAction.Repositories;
 using Sitecore.Data;
 using Sitecore.Data.Items;
+using Sitecore.Sites;
 using Sitecore.Workflows;
 
 namespace MikeRobbins.AdvancedEmailAction
@@ -13,25 +14,17 @@ namespace MikeRobbins.AdvancedEmailAction
     {
         private readonly WorkflowRepository _workflowRepository = new WorkflowRepository();
         private readonly WorkflowHistory _workflowHistory = new WorkflowHistory();
-        
-        public WorkflowHistoryItem CreateWorkflowHistoryForItem(Item emailAction, Item workflowItem, string comments)
+        private readonly Tools _tools = new Tools();
+        private readonly SiteProvider _siteProvider = new SiteProvider();
+        private Database _database = Database.GetDatabase("master");
+
+        public string CreateWorkflowHistoryHtml(string bodyText, WorkflowHistoryItem workflowHistoryItem, Item emailActionItem, Item workflowItem)
         {
-            var correctState = _workflowRepository.GetWorkflowStateForItem(workflowItem, emailAction);
+            var workflowTableData = GetWorkflowTableData(emailActionItem, workflowHistoryItem, workflowItem);
 
-            WorkflowHistoryItem workflowHistoryItem = new WorkflowHistoryItem
-            {
-                ItemPath = workflowItem.Paths.FullPath,
-                ItemLanguage = workflowItem.Language.GetDisplayName(),
-                Version = workflowItem.Version.Number,
-                DisplayName = workflowItem.DisplayName,
-                Updated = DateTime.Now,
-                WorkflowState = correctState,
-                WorkflowName = _workflowRepository.GetItemWorkflowName(workflowItem),
-                Username = Sitecore.Context.GetUserName(),
-                Comments = comments
-            };
+            var commands = GetCommandLinks(workflowItem, workflowHistoryItem.WorkflowState, emailActionItem["Host name"]);
 
-            return workflowHistoryItem;
+            return ReplaceVariables(bodyText, workflowHistoryItem, workflowTableData, commands);
         }
 
         public string ReplaceVariables(string bodyText, WorkflowHistoryItem workflowHistoryItem, string workflowHistory, string commands)
@@ -46,7 +39,6 @@ namespace MikeRobbins.AdvancedEmailAction
             bodyText = bodyText.Replace("$itemuser$", workflowHistoryItem.Username);
             bodyText = bodyText.Replace("$itemcomment$", workflowHistoryItem.Comments);
             bodyText = bodyText.Replace("$commands$", commands);
-
             bodyText = bodyText.Replace("$workflowhistorytable$", workflowHistory);
 
             return bodyText;
@@ -65,7 +57,7 @@ namespace MikeRobbins.AdvancedEmailAction
         {
             var sb = new StringBuilder();
 
-            var workflow = Sitecore.Data.Database.GetDatabase("master").WorkflowProvider.GetWorkflow(workflowItem);
+            var workflow = _database.WorkflowProvider.GetWorkflow(workflowItem);
 
             var commands = workflow.GetCommands(state.StateID);
 
@@ -73,19 +65,18 @@ namespace MikeRobbins.AdvancedEmailAction
 
             foreach (var command in commands)
             {
-                var submit = Tools.GetContentEditorLink(ContentEditorMode.Submit, workflowItem, hostName, new ID(command.CommandID));
-                var submitComment = Tools.GetContentEditorLink(ContentEditorMode.Submit, workflowItem, hostName, new ID(command.CommandID));
+                var submit = _tools.GetContentEditorLink(ContentEditorMode.Submit, workflowItem, hostName, new ID(command.CommandID));
+                var submitComment = _tools.GetContentEditorLink(ContentEditorMode.Submit, workflowItem, hostName, new ID(command.CommandID));
 
                 sb.Append("<li><a href=\"" + submit + "\">" + command.DisplayName + "</a> or <a href=\"" + submitComment + "\">" + command.DisplayName + " & comment</a></li>");
             }
 
-            string editLink = Tools.GetContentEditorLink(ContentEditorMode.Editor, workflowItem, hostName, ID.NewID);
-            string previewLink = Tools.GetContentEditorLink(ContentEditorMode.Preview, workflowItem, hostName, ID.NewID);
-
+            string editLink = _tools.GetContentEditorLink(ContentEditorMode.Editor, workflowItem, hostName, ID.NewID);
+            string previewLink = _tools.GetContentEditorLink(ContentEditorMode.Preview, workflowItem, hostName, ID.NewID);
 
             sb.Append("<li><a href=\"" + editLink + "\">Edit</li>");
             sb.Append("<li><a href=\"" + previewLink + "\">Preview</li>");
-            sb.Append("<li><a href=\"" + "http://" + Sitecore.Sites.SiteContext.GetSite("BusinessCompanion").TargetHostName + "/sitecore/shell/Applications/Workbox/Default.aspx" + "\"/>Workbox</li>");
+            sb.Append("<li><a href=\"" + "http://" + _siteProvider.GetSiteFromSiteItem(workflowItem).TargetHostName + "/sitecore/shell/Applications/Workbox/Default.aspx" + "\"/>Workbox</li>");
 
             sb.Append("</ul>");
 

@@ -12,7 +12,7 @@ namespace MikeRobbins.AdvancedEmailAction
 {
     public class Tools
     {
-        public static string GetContentEditorLink(ContentEditorMode contentEditorMode, Item item, string hostName, ID commandId)
+        public string GetContentEditorLink(ContentEditorMode contentEditorMode, Item item, string hostName, ID commandId)
         {
             switch (contentEditorMode)
             {

@@ -21,6 +21,7 @@ namespace MikeRobbins.AdvancedEmailAction
         private readonly MailMessageRespository _mailMessageRespository = new MailMessageRespository();
         private readonly EmailSender _emailSender = new EmailSender();
         private readonly WorkflowHistoryGenerator _workflowHistoryGenerator = new WorkflowHistoryGenerator();
+        private readonly WorkflowRepository _workflowRepository = new WorkflowRepository();
 
         public WorkflowPipelineArgs workflowPipelineArgs;
 
@@ -53,16 +54,32 @@ namespace MikeRobbins.AdvancedEmailAction
 
             if (!string.IsNullOrEmpty(bodyText))
             {
-                WorkflowHistoryItem workflowHistoryItem = _workflowHistoryGenerator.CreateWorkflowHistoryForItem(emailActionItem, args.DataItem, args.CommentFields["comments"]);
+                WorkflowHistoryItem workflowHistoryItem = CreateWorkflowHistoryForItem(emailActionItem, args.DataItem, args.CommentFields["comments"]);
 
-                var workflowTableData = _workflowHistoryGenerator.GetWorkflowTableData(emailActionItem, workflowHistoryItem, args.DataItem);
-
-                var commands = _workflowHistoryGenerator.GetCommandLinks(args.DataItem, workflowHistoryItem.WorkflowState, HostName = emailActionItem["Host name"]);
-
-                bodyText = _workflowHistoryGenerator.ReplaceVariables(bodyText, workflowHistoryItem, workflowTableData, commands);
+                bodyText = _workflowHistoryGenerator.CreateWorkflowHistoryHtml(bodyText, workflowHistoryItem, emailActionItem,args.DataItem);
             }
 
             return bodyText;
+        }
+
+        public WorkflowHistoryItem CreateWorkflowHistoryForItem(Item emailAction, Item workflowItem, string comments)
+        {
+            var correctState = _workflowRepository.GetWorkflowStateForItem(workflowItem, emailAction);
+
+            WorkflowHistoryItem workflowHistoryItem = new WorkflowHistoryItem
+            {
+                ItemPath = workflowItem.Paths.FullPath,
+                ItemLanguage = workflowItem.Language.GetDisplayName(),
+                Version = workflowItem.Version.Number,
+                DisplayName = workflowItem.DisplayName,
+                Updated = DateTime.Now,
+                WorkflowState = correctState,
+                WorkflowName = _workflowRepository.GetItemWorkflowName(workflowItem),
+                Username = Sitecore.Context.GetUserName(),
+                Comments = comments
+            };
+
+            return workflowHistoryItem;
         }
 
         private Item GetEmailAction()
