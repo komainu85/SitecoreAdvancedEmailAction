@@ -61,15 +61,15 @@
     <Compile Include="Comparers\EmailComparer.cs" />
     <Compile Include="EmailCommand.cs" />
     <Compile Include="ContentEditorMode.cs" />
-    <Compile Include="EmailSender.cs" />
+    <Compile Include="Mail\EmailSender.cs" />
     <Compile Include="Entities\WorkflowHistoryItem.cs" />
-    <Compile Include="MailMessageRespository.cs" />
+    <Compile Include="Repositories\MailMessageRespository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SiteProvider.cs" />
-    <Compile Include="Tools.cs" />
+    <Compile Include="Providers\SiteProvider.cs" />
+    <Compile Include="ContentEditorUrlBuilder.cs" />
     <Compile Include="Repositories\WorkflowRepository.cs" />
-    <Compile Include="WorkflowHistory.cs" />
-    <Compile Include="WorkflowHistoryGenerator.cs" />
+    <Compile Include="EmailContentBuilders\WorkflowHistory.cs" />
+    <Compile Include="EmailContentBuilders\WorkflowHistoryGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

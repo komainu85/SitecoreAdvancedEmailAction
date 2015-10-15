@@ -1,6 +1,6 @@
 using System.Net.Mail;
 
-namespace MikeRobbins.AdvancedEmailAction
+namespace MikeRobbins.AdvancedEmailAction.Mail
 {
     public class EmailSender
     {

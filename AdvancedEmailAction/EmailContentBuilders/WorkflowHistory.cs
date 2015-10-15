@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using MikeRobbins.AdvancedEmailAction.Entities;
 
-namespace MikeRobbins.AdvancedEmailAction
+namespace MikeRobbins.AdvancedEmailAction.EmailContentBuilders
 {
     public class WorkflowHistory
     {

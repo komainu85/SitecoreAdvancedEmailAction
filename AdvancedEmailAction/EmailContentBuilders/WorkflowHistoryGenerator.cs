@@ -1,20 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
 using MikeRobbins.AdvancedEmailAction.Entities;
 using MikeRobbins.AdvancedEmailAction.Repositories;
 using Sitecore.Data;
 using Sitecore.Data.Items;
-using Sitecore.Sites;
 using Sitecore.Workflows;
+using SiteProvider = MikeRobbins.AdvancedEmailAction.Providers.SiteProvider;
 
-namespace MikeRobbins.AdvancedEmailAction
+namespace MikeRobbins.AdvancedEmailAction.EmailContentBuilders
 {
     public class WorkflowHistoryGenerator
     {
         private readonly WorkflowRepository _workflowRepository = new WorkflowRepository();
         private readonly WorkflowHistory _workflowHistory = new WorkflowHistory();
-        private readonly Tools _tools = new Tools();
+        private readonly ContentEditorUrlBuilder _contentEditorUrlBuilder = new ContentEditorUrlBuilder();
         private readonly SiteProvider _siteProvider = new SiteProvider();
 
         public string CreateWorkflowHistoryHtml(string bodyText, WorkflowHistoryItem workflowHistoryItem, Item emailActionItem, Item workflowItem)
@@ -64,14 +63,14 @@ namespace MikeRobbins.AdvancedEmailAction
 
             foreach (var command in commands)
             {
-                var submit = _tools.GetContentEditorLink(ContentEditorMode.Submit, workflowItem, hostName, new ID(command.CommandID));
-                var submitComment = _tools.GetContentEditorLink(ContentEditorMode.Submit, workflowItem, hostName, new ID(command.CommandID));
+                var submit = _contentEditorUrlBuilder.GetContentEditorLink(ContentEditorMode.Submit, workflowItem, hostName, new ID(command.CommandID));
+                var submitComment = _contentEditorUrlBuilder.GetContentEditorLink(ContentEditorMode.Submit, workflowItem, hostName, new ID(command.CommandID));
 
                 sb.Append("<li><a href=\"" + submit + "\">" + command.DisplayName + "</a> or <a href=\"" + submitComment + "\">" + command.DisplayName + " & comment</a></li>");
             }
 
-            string editLink = _tools.GetContentEditorLink(ContentEditorMode.Editor, workflowItem, hostName, ID.NewID);
-            string previewLink = _tools.GetContentEditorLink(ContentEditorMode.Preview, workflowItem, hostName, ID.NewID);
+            string editLink = _contentEditorUrlBuilder.GetContentEditorLink(ContentEditorMode.Editor, workflowItem, hostName, ID.NewID);
+            string previewLink = _contentEditorUrlBuilder.GetContentEditorLink(ContentEditorMode.Preview, workflowItem, hostName, ID.NewID);
 
             sb.Append("<li><a href=\"" + editLink + "\">Edit</li>");
             sb.Append("<li><a href=\"" + previewLink + "\">Preview</li>");

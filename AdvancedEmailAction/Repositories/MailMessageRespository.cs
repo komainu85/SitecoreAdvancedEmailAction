@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mail;
-using MikeRobbins.AdvancedEmailAction.Comparers;
+﻿using System.Net.Mail;
 
-namespace MikeRobbins.AdvancedEmailAction
+namespace MikeRobbins.AdvancedEmailAction.Repositories
 {
     public class MailMessageRespository
     {

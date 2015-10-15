@@ -10,7 +10,7 @@ using Sitecore.Sites;
 
 namespace MikeRobbins.AdvancedEmailAction
 {
-    public class Tools
+    public class ContentEditorUrlBuilder
     {
         public string GetContentEditorLink(ContentEditorMode contentEditorMode, Item item, string hostName, ID commandId)
         {

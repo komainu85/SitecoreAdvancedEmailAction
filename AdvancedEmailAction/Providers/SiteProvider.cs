@@ -1,9 +1,8 @@
 ﻿using System;
 using Sitecore.Data.Items;
-using Sitecore.Sites;
 using Sitecore.Web;
 
-namespace MikeRobbins.AdvancedEmailAction
+namespace MikeRobbins.AdvancedEmailAction.Providers
 {
     public class SiteProvider
     {
