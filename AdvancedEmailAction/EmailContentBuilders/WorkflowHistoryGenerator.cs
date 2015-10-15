@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Text;
+using MikeRobbins.AdvancedEmailAction.Contacts;
 using MikeRobbins.AdvancedEmailAction.Entities;
+using MikeRobbins.AdvancedEmailAction.Providers;
 using MikeRobbins.AdvancedEmailAction.Repositories;
 using Sitecore.Data;
 using Sitecore.Data.Items;
@@ -9,12 +11,20 @@ using SiteProvider = MikeRobbins.AdvancedEmailAction.Providers.SiteProvider;
 
 namespace MikeRobbins.AdvancedEmailAction.EmailContentBuilders
 {
-    public class WorkflowHistoryGenerator
+    public class WorkflowHistoryGenerator : IWorkflowHistoryGenerator
     {
-        private readonly WorkflowRepository _workflowRepository = new WorkflowRepository();
-        private readonly WorkflowHistory _workflowHistory = new WorkflowHistory();
-        private readonly ContentEditorUrlBuilder _contentEditorUrlBuilder = new ContentEditorUrlBuilder();
-        private readonly SiteProvider _siteProvider = new SiteProvider();
+        private readonly IWorkflowRepository _workflowRepository;
+        private readonly IWorkflowHistory _workflowHistory;
+        private readonly IContentEditorUrlBuilder _contentEditorUrlBuilder;
+        private readonly ISiteProvider _siteProvider;
+
+        public WorkflowHistoryGenerator(IWorkflowRepository workflowRepository, IWorkflowHistory workflowHistory, IContentEditorUrlBuilder contentEditorUrlBuilder, ISiteProvider siteProvider)
+        {
+            _workflowRepository = workflowRepository;
+            _workflowHistory = workflowHistory;
+            _contentEditorUrlBuilder = contentEditorUrlBuilder;
+            _siteProvider = siteProvider;
+        }
 
         public string CreateWorkflowHistoryHtml(string bodyText, WorkflowHistoryItem workflowHistoryItem, Item emailActionItem, Item workflowItem)
         {

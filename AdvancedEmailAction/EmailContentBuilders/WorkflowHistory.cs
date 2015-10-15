@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
+using MikeRobbins.AdvancedEmailAction.Contacts;
 using MikeRobbins.AdvancedEmailAction.Entities;
 
 namespace MikeRobbins.AdvancedEmailAction.EmailContentBuilders
 {
-    public class WorkflowHistory
+    public class WorkflowHistory : IWorkflowHistory
     {
         public string GenerateWorkflowTableData(List<WorkflowHistoryItem> workflowHistory)
         {

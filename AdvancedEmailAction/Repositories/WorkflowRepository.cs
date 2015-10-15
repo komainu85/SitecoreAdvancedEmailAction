@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using MikeRobbins.AdvancedEmailAction.Contacts;
 using MikeRobbins.AdvancedEmailAction.Entities;
 using Sitecore.Data;
 using Sitecore.Data.Items;
@@ -8,7 +9,7 @@ using Sitecore.Workflows.Simple;
 
 namespace MikeRobbins.AdvancedEmailAction.Repositories
 {
-    public class WorkflowRepository
+    public class WorkflowRepository : IWorkflowRepository
     {
         public List<WorkflowHistoryItem> GetWorkflowHistory(Item itemInWorkflow, Item emailAction)
         {

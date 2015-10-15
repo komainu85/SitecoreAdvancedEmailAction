@@ -5,6 +5,7 @@ using System.Net.Mail;
 using System.Text;
 using System.Web.Security;
 using MikeRobbins.AdvancedEmailAction.Comparers;
+using MikeRobbins.AdvancedEmailAction.Contacts;
 using MikeRobbins.AdvancedEmailAction.EmailContentBuilders;
 using MikeRobbins.AdvancedEmailAction.Entities;
 using MikeRobbins.AdvancedEmailAction.Mail;
@@ -15,15 +16,26 @@ using Sitecore.Diagnostics;
 using Sitecore.Shell.Feeds.Sections;
 using Sitecore.Workflows;
 using Sitecore.Workflows.Simple;
+using StructureMap;
 
 namespace MikeRobbins.AdvancedEmailAction
 {
     public class EmailCommand
     {
-        private readonly MailMessageRespository _mailMessageRespository = new MailMessageRespository();
-        private readonly EmailSender _emailSender = new EmailSender();
-        private readonly WorkflowHistoryGenerator _workflowHistoryGenerator = new WorkflowHistoryGenerator();
-        private readonly WorkflowRepository _workflowRepository = new WorkflowRepository();
+        private readonly Container _container = new StructureMap.Container(new IoC.Registry());
+
+        private readonly IMailMessageRespository _mailMessageRespository;
+        private readonly IEmailSender _emailSender;
+        private readonly IWorkflowHistoryGenerator _workflowHistoryGenerator;
+        private readonly IWorkflowRepository _workflowRepository;
+
+        public EmailCommand()
+        {
+            _mailMessageRespository = _container.GetInstance<IMailMessageRespository>();
+            _emailSender = _container.GetInstance<IEmailSender>();
+            _workflowHistoryGenerator = _container.GetInstance<IWorkflowHistoryGenerator>();
+            _workflowRepository = _container.GetInstance<IWorkflowRepository>();
+        }
 
         public void Process(WorkflowPipelineArgs args)
         { 

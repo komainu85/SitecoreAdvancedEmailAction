@@ -4,7 +4,7 @@ using Sitecore.Web;
 
 namespace MikeRobbins.AdvancedEmailAction.Providers
 {
-    public class SiteProvider
+    public class SiteProvider : ISiteProvider
     {
         public SiteInfo GetSiteFromSiteItem(Item item)
         {

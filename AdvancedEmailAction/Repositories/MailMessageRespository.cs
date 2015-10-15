@@ -1,8 +1,9 @@
 ﻿using System.Net.Mail;
+using MikeRobbins.AdvancedEmailAction.Contacts;
 
 namespace MikeRobbins.AdvancedEmailAction.Repositories
 {
-    public class MailMessageRespository
+    public class MailMessageRespository : IMailMessageRespository
     {
         public MailMessage CreateMailMessage(string from, string to, string subject, string message)
         {
