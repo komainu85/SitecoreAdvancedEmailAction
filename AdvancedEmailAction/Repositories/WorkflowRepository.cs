@@ -10,19 +10,15 @@ namespace MikeRobbins.AdvancedEmailAction.Repositories
 {
     public class WorkflowRepository
     {
-        private readonly Database _database = Sitecore.Data.Database.GetDatabase("master");
-
         public List<WorkflowHistoryItem> GetWorkflowHistory(Item itemInWorkflow, Item emailAction)
         {
             var workflowHistory = new List<WorkflowHistoryItem>();
-
-            var context = _database;
 
             var workflowItemHistory = itemInWorkflow.State.GetWorkflow().GetHistory(itemInWorkflow);
 
             foreach (WorkflowEvent workflowEvent in workflowItemHistory)
             {
-                Item previousWorkflowState = context.GetItem(workflowEvent.OldState);
+                Item previousWorkflowState = itemInWorkflow.Database.GetItem(workflowEvent.OldState);
                 WorkflowState newWorkflowState = itemInWorkflow.State.GetWorkflow().GetState(workflowEvent.NewState);
 
                 workflowHistory.Add(new WorkflowHistoryItem()
@@ -54,9 +50,7 @@ namespace MikeRobbins.AdvancedEmailAction.Repositories
 
         public string GetItemWorkflowName(Item workflowItem)
         {
-            Sitecore.Data.Database context = _database;
-
-            IWorkflow itemWorkflow = context.WorkflowProvider.GetWorkflow(workflowItem);
+            IWorkflow itemWorkflow = workflowItem.Database.WorkflowProvider.GetWorkflow(workflowItem);
             string itemWorkflowName = itemWorkflow.Appearance.DisplayName;
 
             return itemWorkflowName;
@@ -68,7 +62,7 @@ namespace MikeRobbins.AdvancedEmailAction.Repositories
 
             var nextStateId = command["Next state"];
 
-            var itemWorkflow = _database.WorkflowProvider.GetWorkflow(item);
+            var itemWorkflow = item.Database.WorkflowProvider.GetWorkflow(item);
 
             return itemWorkflow.GetState(nextStateId.ToString());
         }

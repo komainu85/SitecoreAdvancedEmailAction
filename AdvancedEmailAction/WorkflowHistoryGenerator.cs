@@ -16,7 +16,6 @@ namespace MikeRobbins.AdvancedEmailAction
         private readonly WorkflowHistory _workflowHistory = new WorkflowHistory();
         private readonly Tools _tools = new Tools();
         private readonly SiteProvider _siteProvider = new SiteProvider();
-        private Database _database = Database.GetDatabase("master");
 
         public string CreateWorkflowHistoryHtml(string bodyText, WorkflowHistoryItem workflowHistoryItem, Item emailActionItem, Item workflowItem)
         {
@@ -57,7 +56,7 @@ namespace MikeRobbins.AdvancedEmailAction
         {
             var sb = new StringBuilder();
 
-            var workflow = _database.WorkflowProvider.GetWorkflow(workflowItem);
+            var workflow = workflowItem.Database.WorkflowProvider.GetWorkflow(workflowItem);
 
             var commands = workflow.GetCommands(state.StateID);
 

@@ -23,14 +23,10 @@ namespace MikeRobbins.AdvancedEmailAction
         private readonly WorkflowHistoryGenerator _workflowHistoryGenerator = new WorkflowHistoryGenerator();
         private readonly WorkflowRepository _workflowRepository = new WorkflowRepository();
 
-        public WorkflowPipelineArgs workflowPipelineArgs;
-
         public void Process(WorkflowPipelineArgs args)
-        {
-            workflowPipelineArgs = args;
-
+        { 
             Assert.ArgumentNotNull((object)args, "args");
-            Item emailActionItem = GetEmailAction();
+            Item emailActionItem = GetEmailAction(args);
 
             if (emailActionItem == null)
             {
@@ -82,7 +78,7 @@ namespace MikeRobbins.AdvancedEmailAction
             return itemInWorkflow;
         }
 
-        private Item GetEmailAction()
+        private Item GetEmailAction(WorkflowPipelineArgs workflowPipelineArgs)
         {
             ProcessorItem processorItem = workflowPipelineArgs.ProcessorItem;
             return processorItem?.InnerItem;
