@@ -46,7 +46,7 @@ namespace MikeRobbins.AdvancedEmailAction
 
         public string GetWorkflowTableData(Item emailAction, WorkflowHistoryItem workflowHistoryItem, Item workflowItem)
         {
-            List<ItemWorkflowHistory> itemWorkflowHistories = _workflowRepository.GetWorkflowHistory(workflowItem, emailAction);
+            List<WorkflowHistoryItem> itemWorkflowHistories = _workflowRepository.GetWorkflowHistory(workflowItem, emailAction);
 
             itemWorkflowHistories.Add(_workflowRepository.GetWorkflowHistoryForItem(workflowItem, workflowHistoryItem.Comments, emailAction));
 

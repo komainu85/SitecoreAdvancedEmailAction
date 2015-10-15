@@ -7,25 +7,27 @@ using Sitecore.Workflows;
 
 namespace MikeRobbins.AdvancedEmailAction.Entities
 {
-   public class WorkflowHistoryItem
+    public class WorkflowHistoryItem
     {
-       public string ItemPath { get; set; }
+        public string ItemPath { get; set; }
 
-       public string ItemLanguage { get; set; }
+        public string ItemLanguage { get; set; }
 
-       public int Version { get; set; }
+        public int Version { get; set; }
 
-       public string DisplayName { get; set; }
+        public string DisplayName { get; set; }
 
-       public DateTime Updated { get; set; }
+        public DateTime Updated { get; set; }
 
-       public WorkflowState WorkflowState { get; set; }
+        public WorkflowState WorkflowState { get; set; }
 
-       public string WorkflowName { get; set; }
+        public string PreviousState { get; set; }
 
-       public string Username { get; set; }
+        public string WorkflowName { get; set; }
 
-       public string Comments { get; set; }
+        public string Username { get; set; }
+
+        public string Comments { get; set; }
 
     }
 }

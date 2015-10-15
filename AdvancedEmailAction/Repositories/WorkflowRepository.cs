@@ -12,43 +12,41 @@ namespace MikeRobbins.AdvancedEmailAction.Repositories
     {
         private readonly Database _database = Sitecore.Data.Database.GetDatabase("master");
 
-        public List<ItemWorkflowHistory> GetWorkflowHistory(Item workflowItem, Item emailAction)
+        public List<WorkflowHistoryItem> GetWorkflowHistory(Item itemInWorkflow, Item emailAction)
         {
-            var workflowHistory = new List<ItemWorkflowHistory>();
+            var workflowHistory = new List<WorkflowHistoryItem>();
 
             var context = _database;
 
-            var workflowItemHistory = workflowItem.State.GetWorkflow().GetHistory(workflowItem);
+            var workflowItemHistory = itemInWorkflow.State.GetWorkflow().GetHistory(itemInWorkflow);
 
             foreach (WorkflowEvent workflowEvent in workflowItemHistory)
             {
-                Item iItemPreviousState = context.GetItem(workflowEvent.OldState);
-                Item iItemCurrentState = context.GetItem(workflowEvent.NewState);
-                string itemPreviousState = (iItemPreviousState != null) ? iItemPreviousState.DisplayName : string.Empty;
-                string itemCurrentState = (iItemCurrentState != null) ? iItemCurrentState.DisplayName : string.Empty;
+                Item previousWorkflowState = context.GetItem(workflowEvent.OldState);
+                WorkflowState newWorkflowState = itemInWorkflow.State.GetWorkflow().GetState(workflowEvent.NewState);
 
-                workflowHistory.Add(new ItemWorkflowHistory()
+                workflowHistory.Add(new WorkflowHistoryItem()
                 {
-                    ItemDateTime = workflowEvent.Date,
-                    User = workflowEvent.User,
-                    PreviousState = itemPreviousState,
-                    CurrentState = itemCurrentState,
-                    Comment = workflowEvent.Text
+                    Updated = workflowEvent.Date,
+                    Username = workflowEvent.User,
+                    PreviousState = previousWorkflowState?.DisplayName,
+                    WorkflowState = newWorkflowState,
+                    Comments = workflowEvent.CommentFields["comments"]
                 });
             }
 
             return workflowHistory;
         }
 
-        public ItemWorkflowHistory GetWorkflowHistoryForItem(Item item, string commentsToAdd, Item emailAction)
+        public WorkflowHistoryItem GetWorkflowHistoryForItem(Item item, string commentsToAdd, Item emailAction)
         {
-            var history = new ItemWorkflowHistory()
+            var history = new WorkflowHistoryItem()
             {
-                ItemDateTime = DateTime.Now,
-                User = Sitecore.Context.GetUserName(),
+                Updated = DateTime.Now,
+                Username = Sitecore.Context.GetUserName(),
                 PreviousState = item.State.GetWorkflowState().DisplayName,
-                CurrentState = GetWorkflowStateForItem(item, emailAction).DisplayName,
-                Comment = commentsToAdd
+                WorkflowState = GetWorkflowStateForItem(item, emailAction),
+                Comments = commentsToAdd
             };
 
             return history;

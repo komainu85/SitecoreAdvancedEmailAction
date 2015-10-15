@@ -54,9 +54,9 @@ namespace MikeRobbins.AdvancedEmailAction
 
             if (!string.IsNullOrEmpty(bodyText))
             {
-                WorkflowHistoryItem workflowHistoryItem = CreateWorkflowHistoryForItem(emailActionItem, args.DataItem, args.CommentFields["comments"]);
+                WorkflowHistoryItem itemInWorkflow = CreateWorkflowHistoryForItem(emailActionItem, args.DataItem, args.CommentFields["comments"]);
 
-                bodyText = _workflowHistoryGenerator.CreateWorkflowHistoryHtml(bodyText, workflowHistoryItem, emailActionItem,args.DataItem);
+                bodyText = _workflowHistoryGenerator.CreateWorkflowHistoryHtml(bodyText, itemInWorkflow, emailActionItem,args.DataItem);
             }
 
             return bodyText;
@@ -66,7 +66,7 @@ namespace MikeRobbins.AdvancedEmailAction
         {
             var correctState = _workflowRepository.GetWorkflowStateForItem(workflowItem, emailAction);
 
-            WorkflowHistoryItem workflowHistoryItem = new WorkflowHistoryItem
+            WorkflowHistoryItem itemInWorkflow = new WorkflowHistoryItem
             {
                 ItemPath = workflowItem.Paths.FullPath,
                 ItemLanguage = workflowItem.Language.GetDisplayName(),
@@ -79,7 +79,7 @@ namespace MikeRobbins.AdvancedEmailAction
                 Comments = comments
             };
 
-            return workflowHistoryItem;
+            return itemInWorkflow;
         }
 
         private Item GetEmailAction()

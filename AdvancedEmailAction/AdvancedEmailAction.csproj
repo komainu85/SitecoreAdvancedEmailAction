@@ -62,7 +62,6 @@
     <Compile Include="EmailCommand.cs" />
     <Compile Include="ContentEditorMode.cs" />
     <Compile Include="EmailSender.cs" />
-    <Compile Include="Entities\ItemWorkflowHistory.cs" />
     <Compile Include="Entities\WorkflowHistoryItem.cs" />
     <Compile Include="MailMessageRespository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
