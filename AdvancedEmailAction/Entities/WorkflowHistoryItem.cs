@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Sitecore.Collections;
 using Sitecore.Workflows;
 
 namespace MikeRobbins.AdvancedEmailAction.Entities
@@ -27,7 +28,7 @@ namespace MikeRobbins.AdvancedEmailAction.Entities
 
         public string Username { get; set; }
 
-        public string Comments { get; set; }
+        public StringDictionary Comments { get; set; }
 
     }
 }

@@ -72,6 +72,8 @@
     <Compile Include="Contacts\IWorkflowHistory.cs" />
     <Compile Include="Contacts\IWorkflowHistoryGenerator.cs" />
     <Compile Include="Contacts\IContentEditorUrlBuilder.cs" />
+    <Compile Include="Contacts\IWorkflowCommentsGenerator.cs" />
+    <Compile Include="EmailContentBuilders\WorkflowCommentsGenerator.cs" />
     <Compile Include="IoC\Registry.cs" />
     <Compile Include="Mail\EmailSender.cs" />
     <Compile Include="Entities\WorkflowHistoryItem.cs" />
@@ -84,11 +86,14 @@
     <Compile Include="Providers\SiteProvider.cs" />
     <Compile Include="ContentEditorUrlBuilder.cs" />
     <Compile Include="Repositories\WorkflowRepository.cs" />
-    <Compile Include="EmailContentBuilders\WorkflowHistory.cs" />
     <Compile Include="EmailContentBuilders\WorkflowHistoryGenerator.cs" />
+    <Compile Include="EmailContentBuilders\ItemDetailGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Html\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

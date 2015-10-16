@@ -6,9 +6,9 @@ namespace MikeRobbins.AdvancedEmailAction.Contacts
 {
     public interface IWorkflowHistoryGenerator
     {
-        string CreateWorkflowHistoryHtml(string bodyText, WorkflowHistoryItem workflowHistoryItem, Item emailActionItem, Item workflowItem);
-        string ReplaceVariables(string bodyText, WorkflowHistoryItem workflowHistoryItem, string workflowHistory, string commands);
-        string GetWorkflowTableData(Item emailAction, WorkflowHistoryItem workflowHistoryItem, Item workflowItem);
-        string GetCommandLinks(Item workflowItem, WorkflowState state, string hostName);
+        string CreateItemWorkflowHistoryHtml(string bodyText, WorkflowHistoryItem workflowHistoryItem, Item emailActionItem, Item workflowItem);
+        string ReplaceHtmlVariables(string bodyText, WorkflowHistoryItem workflowHistoryItem, string workflowHistory, string commands, string comments);
+        string GetWorkflowHistoryTableData(Item emailAction, WorkflowHistoryItem workflowHistoryItem, Item workflowItem);
+        string GetWorkflowCommandLinks(Item workflowItem, WorkflowState state, string hostName);
     }
 }

@@ -10,6 +10,7 @@ using MikeRobbins.AdvancedEmailAction.EmailContentBuilders;
 using MikeRobbins.AdvancedEmailAction.Entities;
 using MikeRobbins.AdvancedEmailAction.Mail;
 using MikeRobbins.AdvancedEmailAction.Repositories;
+using Sitecore.Collections;
 using Sitecore.Data;
 using Sitecore.Data.Items;
 using Sitecore.Diagnostics;
@@ -22,7 +23,7 @@ namespace MikeRobbins.AdvancedEmailAction
 {
     public class EmailCommand
     {
-        private readonly Container _container = new StructureMap.Container(new IoC.Registry());
+        private readonly Container _container = new Container(new IoC.Registry());
 
         private readonly IMailMessageRespository _mailMessageRespository;
         private readonly IEmailSender _emailSender;
@@ -64,15 +65,15 @@ namespace MikeRobbins.AdvancedEmailAction
 
             if (!string.IsNullOrEmpty(bodyText))
             {
-                WorkflowHistoryItem itemInWorkflow = CreateWorkflowHistoryForItem(emailActionItem, args.DataItem, args.CommentFields["Comments"]);
+                WorkflowHistoryItem itemInWorkflow = CreateWorkflowHistoryForItem(emailActionItem, args.DataItem, args.CommentFields);
 
-                bodyText = _workflowHistoryGenerator.CreateWorkflowHistoryHtml(bodyText, itemInWorkflow, emailActionItem,args.DataItem);
+                bodyText = _workflowHistoryGenerator.CreateItemWorkflowHistoryHtml(bodyText, itemInWorkflow, emailActionItem,args.DataItem);
             }
 
             return bodyText;
         }
 
-        public WorkflowHistoryItem CreateWorkflowHistoryForItem(Item emailAction, Item workflowItem, string comments)
+        public WorkflowHistoryItem CreateWorkflowHistoryForItem(Item emailAction, Item workflowItem, StringDictionary comments)
         {
             var correctState = _workflowRepository.GetWorkflowStateForItem(workflowItem, emailAction);
 

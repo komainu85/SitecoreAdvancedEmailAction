@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using MikeRobbins.AdvancedEmailAction.Contacts;
 using MikeRobbins.AdvancedEmailAction.Entities;
+using Sitecore.Collections;
 using Sitecore.Data;
 using Sitecore.Data.Items;
 using Sitecore.Workflows;
@@ -28,14 +29,14 @@ namespace MikeRobbins.AdvancedEmailAction.Repositories
                     Username = workflowEvent.User,
                     PreviousState = previousWorkflowState?.DisplayName,
                     WorkflowState = newWorkflowState,
-                    Comments = workflowEvent.CommentFields["Comments"]
+                    Comments = workflowEvent.CommentFields
                 });
             }
 
             return workflowHistory;
         }
 
-        public WorkflowHistoryItem GetWorkflowHistoryForItem(Item item, string commentsToAdd, Item emailAction)
+        public WorkflowHistoryItem GetWorkflowHistoryForItem(Item item, StringDictionary comments, Item emailAction)
         {
             var history = new WorkflowHistoryItem()
             {
@@ -43,7 +44,7 @@ namespace MikeRobbins.AdvancedEmailAction.Repositories
                 Username = Sitecore.Context.GetUserName(),
                 PreviousState = item.State.GetWorkflowState().DisplayName,
                 WorkflowState = GetWorkflowStateForItem(item, emailAction),
-                Comments = commentsToAdd
+                Comments = comments
             };
 
             return history;

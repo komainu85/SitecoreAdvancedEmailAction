@@ -15,13 +15,14 @@ namespace MikeRobbins.AdvancedEmailAction.IoC
     {
         public Registry()
         {
-            For<Contacts.IContentEditorUrlBuilder>().Use<ContentEditorUrlBuilder>();
-            For<Contacts.IEmailSender>().Use<EmailSender>();
-            For<Contacts.IMailMessageRespository>().Use<MailMessageRespository>();
-            For<Contacts.IWorkflowHistory>().Use<WorkflowHistory>();
-            For<Contacts.IWorkflowHistoryGenerator>().Use<WorkflowHistoryGenerator>();
-            For<Contacts.IWorkflowRepository>().Use<WorkflowRepository>();
+            For<IContentEditorUrlBuilder>().Use<ContentEditorUrlBuilder>();
+            For<IEmailSender>().Use<EmailSender>();
+            For<IMailMessageRespository>().Use<MailMessageRespository>();
+            For<IWorkflowHistory>().Use<WorkflowHistoryGenerator>();
+            For<IWorkflowHistoryGenerator>().Use<ItemDetailGenerator>();
+            For<IWorkflowRepository>().Use<WorkflowRepository>();
             For<ISiteProvider>().Use<SiteProvider>();
+            For<IWorkflowCommentsGenerator>().Use<WorkflowCommentsGenerator>();
         }
     }
 }

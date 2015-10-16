@@ -1,94 +1,38 @@
 ﻿using System.Collections.Generic;
-using System.Text;
 using MikeRobbins.AdvancedEmailAction.Contacts;
 using MikeRobbins.AdvancedEmailAction.Entities;
-using MikeRobbins.AdvancedEmailAction.Providers;
-using MikeRobbins.AdvancedEmailAction.Repositories;
-using Sitecore.Data;
-using Sitecore.Data.Items;
-using Sitecore.Workflows;
-using SiteProvider = MikeRobbins.AdvancedEmailAction.Providers.SiteProvider;
 
 namespace MikeRobbins.AdvancedEmailAction.EmailContentBuilders
 {
-    public class WorkflowHistoryGenerator : IWorkflowHistoryGenerator
+    public class WorkflowHistoryGenerator : IWorkflowHistory
     {
-        private readonly IWorkflowRepository _workflowRepository;
-        private readonly IWorkflowHistory _workflowHistory;
-        private readonly IContentEditorUrlBuilder _contentEditorUrlBuilder;
-        private readonly ISiteProvider _siteProvider;
+        private readonly IWorkflowCommentsGenerator _workflowCommentsGenerator;
 
-        public WorkflowHistoryGenerator(IWorkflowRepository workflowRepository, IWorkflowHistory workflowHistory, IContentEditorUrlBuilder contentEditorUrlBuilder, ISiteProvider siteProvider)
+        public WorkflowHistoryGenerator(IWorkflowCommentsGenerator workflowCommentsGenerator)
         {
-            _workflowRepository = workflowRepository;
-            _workflowHistory = workflowHistory;
-            _contentEditorUrlBuilder = contentEditorUrlBuilder;
-            _siteProvider = siteProvider;
+            _workflowCommentsGenerator = workflowCommentsGenerator;
         }
 
-        public string CreateWorkflowHistoryHtml(string bodyText, WorkflowHistoryItem workflowHistoryItem, Item emailActionItem, Item workflowItem)
+        public string GenerateWorkflowTableData(List<WorkflowHistoryItem> workflowHistory)
         {
-            var workflowTableData = GetWorkflowTableData(emailActionItem, workflowHistoryItem, workflowItem);
+            string htmlWorkflowTable = "<table><tr><th style='text-align: left; padding: 10px;'>Date</th><th style='text-align: left; padding: 10px;'>User</th><th style='text-align: left; padding: 10px;'>Previous State</th><th style='text-align: left; padding: 10px;'>Current State</th><th style='text-align: left; padding: 10px;'>Comment</th></tr>";
 
-            var commands = GetCommandLinks(workflowItem, workflowHistoryItem.WorkflowState, emailActionItem["Host name"]);
-
-            return ReplaceVariables(bodyText, workflowHistoryItem, workflowTableData, commands);
-        }
-
-        public string ReplaceVariables(string bodyText, WorkflowHistoryItem workflowHistoryItem, string workflowHistory, string commands)
-        {
-            bodyText = bodyText.Replace("$itempath$", workflowHistoryItem.ItemPath);
-            bodyText = bodyText.Replace("$itemlanguage$", workflowHistoryItem.ItemLanguage);
-            bodyText = bodyText.Replace("$itemversion$", workflowHistoryItem.Version.ToString());
-            bodyText = bodyText.Replace("$itemtitle$", workflowHistoryItem.DisplayName);
-            bodyText = bodyText.Replace("$itemdatetime$", workflowHistoryItem.Updated.ToString("dd MMMM yyyy, HH:mm:ss"));
-            bodyText = bodyText.Replace("$itemworkflowstate$", workflowHistoryItem.WorkflowState.DisplayName);
-            bodyText = bodyText.Replace("$itemworkflowname$", workflowHistoryItem.WorkflowName);
-            bodyText = bodyText.Replace("$itemuser$", workflowHistoryItem.Username);
-            bodyText = bodyText.Replace("$itemcomment$", workflowHistoryItem.Comments);
-            bodyText = bodyText.Replace("$commands$", commands);
-            bodyText = bodyText.Replace("$workflowhistorytable$", workflowHistory);
-
-            return bodyText;
-        }
-
-        public string GetWorkflowTableData(Item emailAction, WorkflowHistoryItem workflowHistoryItem, Item workflowItem)
-        {
-            List<WorkflowHistoryItem> itemWorkflowHistories = _workflowRepository.GetWorkflowHistory(workflowItem, emailAction);
-
-            itemWorkflowHistories.Add(_workflowRepository.GetWorkflowHistoryForItem(workflowItem, workflowHistoryItem.Comments, emailAction));
-
-            return _workflowHistory.GenerateWorkflowTableData(itemWorkflowHistories);
-        }
-
-        public string GetCommandLinks(Item workflowItem, WorkflowState state, string hostName)
-        {
-            var sb = new StringBuilder();
-
-            var workflow = workflowItem.Database.WorkflowProvider.GetWorkflow(workflowItem);
-
-            var commands = workflow.GetCommands(state.StateID);
-
-            sb.Append("<ul>");
-
-            foreach (var command in commands)
+            foreach (WorkflowHistoryItem workflowItem in workflowHistory)
             {
-                var submit = _contentEditorUrlBuilder.GetContentEditorLink(ContentEditorMode.Submit, workflowItem, hostName, new ID(command.CommandID));
-                var submitComment = _contentEditorUrlBuilder.GetContentEditorLink(ContentEditorMode.Submit, workflowItem, hostName, new ID(command.CommandID));
+                var comments = _workflowCommentsGenerator.CreateWorkflowComments(workflowItem.Comments);
 
-                sb.Append("<li><a href=\"" + submit + "\">" + command.DisplayName + "</a> or <a href=\"" + submitComment + "\">" + command.DisplayName + " & comment</a></li>");
+                htmlWorkflowTable += "<tr>";
+                htmlWorkflowTable += "<td style='text-align: left; padding: 10px;'>" + workflowItem.Updated.ToString("dd MMMM yyyy, HH:mm:ss") + "</td>";
+                htmlWorkflowTable += "<td style='text-align: left; padding: 10px;'>" + workflowItem.Username + "</td>";
+                htmlWorkflowTable += "<td style='text-align: left; padding: 10px;'>" + workflowItem.PreviousState + "</td>";
+                htmlWorkflowTable += "<td style='text-align: left; padding: 10px;'>" + workflowItem.WorkflowState.DisplayName + "</td>";
+                htmlWorkflowTable += "<td style='text-align: left; padding: 10px;'>" + comments + "</td>";
+                htmlWorkflowTable += "</tr>";
             }
 
-            string editLink = _contentEditorUrlBuilder.GetContentEditorLink(ContentEditorMode.Editor, workflowItem, hostName, ID.NewID);
-            string previewLink = _contentEditorUrlBuilder.GetContentEditorLink(ContentEditorMode.Preview, workflowItem, hostName, ID.NewID);
+            htmlWorkflowTable += "</table>";
 
-            sb.Append("<li><a href=\"" + editLink + "\">Edit</li>");
-            sb.Append("<li><a href=\"" + previewLink + "\">Preview</li>");
-            sb.Append("<li><a href=\"" + "http://" + _siteProvider.GetSiteFromSiteItem(workflowItem).TargetHostName + "/sitecore/shell/Applications/Workbox/Default.aspx" + "\"/>Workbox</li>");
-
-            sb.Append("</ul>");
-
-            return sb.ToString();
+            return htmlWorkflowTable;
         }
     }
 }
