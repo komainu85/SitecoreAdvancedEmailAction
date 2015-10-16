@@ -2,6 +2,7 @@
 using MikeRobbins.AdvancedEmailAction.Contracts;
 using MikeRobbins.AdvancedEmailAction.Entities;
 using Sitecore.Data.Items;
+using Sitecore.Web;
 
 namespace MikeRobbins.AdvancedEmailAction.EmailContentBuilders
 {
@@ -11,28 +12,33 @@ namespace MikeRobbins.AdvancedEmailAction.EmailContentBuilders
         private readonly IWorkflowHistory _workflowHistory;
         private readonly IWorkflowCommentsGenerator _workflowCommentsGenerator;
         private readonly IWorkflowCommandsGenerator _workflowCommandsGenerator;
+        private readonly ISiteProvider _siteProvider;
 
-        public ItemDetailGenerator(IWorkflowRepository workflowRepository, IWorkflowHistory workflowHistory, IWorkflowCommentsGenerator workflowCommentsGenerator, IWorkflowCommandsGenerator workflowCommandsGenerator)
+        public ItemDetailGenerator(IWorkflowRepository workflowRepository, IWorkflowHistory workflowHistory, IWorkflowCommentsGenerator workflowCommentsGenerator, IWorkflowCommandsGenerator workflowCommandsGenerator, ISiteProvider siteProvider)
         {
             _workflowRepository = workflowRepository;
             _workflowHistory = workflowHistory;
             _workflowCommentsGenerator = workflowCommentsGenerator;
             _workflowCommandsGenerator = workflowCommandsGenerator;
+            _siteProvider = siteProvider;
         }
 
         public string CreateItemWorkflowHistoryHtml(string bodyText, WorkflowHistoryItem workflowHistoryItem, Item emailActionItem, Item workflowItem)
         {
+            SiteInfo siteInfo = _siteProvider.GetSiteFromSiteItem(workflowItem);
+
             var workflowTableData = GetWorkflowHistoryTableData(emailActionItem, workflowHistoryItem, workflowItem);
 
             var commands = _workflowCommandsGenerator.CreateWorkflowCommandLinks(workflowItem, workflowHistoryItem.WorkflowState, emailActionItem["Host name"]);
 
             var comments = _workflowCommentsGenerator.CreateWorkflowComments(workflowHistoryItem.Comments);
 
-            return ReplaceHtmlVariables(bodyText, workflowHistoryItem, workflowTableData, commands, comments);
+            return ReplaceHtmlVariables(bodyText, workflowHistoryItem, workflowTableData, commands, comments, siteInfo?.Name);
         }
 
-        public string ReplaceHtmlVariables(string bodyText, WorkflowHistoryItem workflowHistoryItem, string workflowHistory, string commands, string comments)
+        public string ReplaceHtmlVariables(string bodyText, WorkflowHistoryItem workflowHistoryItem, string workflowHistory, string commands, string comments, string siteName)
         {
+            bodyText = bodyText.Replace("$siteName$", siteName);   
             bodyText = bodyText.Replace("$itempath$", workflowHistoryItem.ItemPath);
             bodyText = bodyText.Replace("$itemlanguage$", workflowHistoryItem.ItemLanguage);
             bodyText = bodyText.Replace("$itemversion$", workflowHistoryItem.Version.ToString());

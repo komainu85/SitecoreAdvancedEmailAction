@@ -9,12 +9,10 @@ namespace MikeRobbins.AdvancedEmailAction.EmailContentBuilders
     public class WorkflowCommandsGenerator : IWorkflowCommandsGenerator
     {
         private readonly IContentEditorUrlBuilder _contentEditorUrlBuilder;
-        private readonly ISiteProvider _siteProvider;
 
-        public WorkflowCommandsGenerator( IContentEditorUrlBuilder contentEditorUrlBuilder, ISiteProvider siteProvider)
+        public WorkflowCommandsGenerator( IContentEditorUrlBuilder contentEditorUrlBuilder)
         {
             _contentEditorUrlBuilder = contentEditorUrlBuilder;
-            _siteProvider = siteProvider;
         }
 
         public string CreateWorkflowCommandLinks(Item workflowItem, WorkflowState state, string hostName)
@@ -40,7 +38,7 @@ namespace MikeRobbins.AdvancedEmailAction.EmailContentBuilders
 
             sb.Append("<li><a href=\"" + editLink + "\">Edit</li>");
             sb.Append("<li><a href=\"" + previewLink + "\">Preview</li>");
-            sb.Append("<li><a href=\"" + "http://" + _siteProvider.GetSiteFromSiteItem(workflowItem).TargetHostName + "/sitecore/shell/Applications/Workbox/Default.aspx" + "\"/>Workbox</li>");
+            sb.Append("<li><a href=\"" + "http://" + hostName + "/sitecore/shell/Applications/Workbox/Default.aspx" + "\"/>Workbox</li>");
 
             sb.Append("</ul>");
 
