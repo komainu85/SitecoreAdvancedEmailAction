@@ -4,7 +4,7 @@ using Sitecore.Collections;
 using Sitecore.Data.Items;
 using Sitecore.Workflows;
 
-namespace MikeRobbins.AdvancedEmailAction.Contacts
+namespace MikeRobbins.AdvancedEmailAction.Contracts
 {
     public interface IWorkflowRepository
     {

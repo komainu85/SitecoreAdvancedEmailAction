@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using MikeRobbins.AdvancedEmailAction.Contacts;
+using MikeRobbins.AdvancedEmailAction.Contracts;
 using MikeRobbins.AdvancedEmailAction.Entities;
 using Sitecore.Collections;
-using Sitecore.Data;
 using Sitecore.Data.Items;
 using Sitecore.Workflows;
-using Sitecore.Workflows.Simple;
 
 namespace MikeRobbins.AdvancedEmailAction.Repositories
 {
@@ -68,6 +66,5 @@ namespace MikeRobbins.AdvancedEmailAction.Repositories
 
             return itemWorkflow.GetState(nextStateId.ToString());
         }
-
     }
 }

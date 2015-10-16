@@ -1,6 +1,6 @@
 using System.Net.Mail;
 
-namespace MikeRobbins.AdvancedEmailAction.Contacts
+namespace MikeRobbins.AdvancedEmailAction.Contracts
 {
     public interface IMailMessageRespository
     {
