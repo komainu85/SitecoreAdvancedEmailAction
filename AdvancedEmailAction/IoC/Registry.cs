@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MikeRobbins.AdvancedEmailAction.Contacts;
 using MikeRobbins.AdvancedEmailAction.EmailContentBuilders;
 using MikeRobbins.AdvancedEmailAction.Mail;
+using MikeRobbins.AdvancedEmailAction.Providers;
 using MikeRobbins.AdvancedEmailAction.Repositories;
 
 namespace MikeRobbins.AdvancedEmailAction.IoC
@@ -19,6 +21,7 @@ namespace MikeRobbins.AdvancedEmailAction.IoC
             For<Contacts.IWorkflowHistory>().Use<WorkflowHistory>();
             For<Contacts.IWorkflowHistoryGenerator>().Use<WorkflowHistoryGenerator>();
             For<Contacts.IWorkflowRepository>().Use<WorkflowRepository>();
+            For<ISiteProvider>().Use<SiteProvider>();
         }
     }
 }

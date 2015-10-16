@@ -1,4 +1,5 @@
 ﻿using System;
+using MikeRobbins.AdvancedEmailAction.Contacts;
 using Sitecore.Data.Items;
 using Sitecore.Web;
 

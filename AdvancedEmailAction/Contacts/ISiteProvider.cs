@@ -1,7 +1,7 @@
 using Sitecore.Data.Items;
 using Sitecore.Web;
 
-namespace MikeRobbins.AdvancedEmailAction.Providers
+namespace MikeRobbins.AdvancedEmailAction.Contacts
 {
     public interface ISiteProvider
     {

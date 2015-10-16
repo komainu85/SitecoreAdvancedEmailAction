@@ -28,7 +28,7 @@ namespace MikeRobbins.AdvancedEmailAction.Repositories
                     Username = workflowEvent.User,
                     PreviousState = previousWorkflowState?.DisplayName,
                     WorkflowState = newWorkflowState,
-                    Comments = workflowEvent.CommentFields["comments"]
+                    Comments = workflowEvent.CommentFields["Comments"]
                 });
             }
 
@@ -67,5 +67,6 @@ namespace MikeRobbins.AdvancedEmailAction.Repositories
 
             return itemWorkflow.GetState(nextStateId.ToString());
         }
+
     }
 }

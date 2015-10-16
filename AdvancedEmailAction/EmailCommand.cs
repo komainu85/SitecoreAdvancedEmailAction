@@ -47,13 +47,13 @@ namespace MikeRobbins.AdvancedEmailAction
                 return;
             }
 
-            string from = emailActionItem["from"];
-            string to = emailActionItem["to"];
-            string subject = emailActionItem["subject"];
+            string from = emailActionItem["From"];
+            string to = emailActionItem["To"];
+            string subject = emailActionItem["Subject"];
 
-            string message = GetBodyText(emailActionItem, "message", args);
+            string body = GetBodyText(emailActionItem, "Body", args);
 
-            var mailMessage = _mailMessageRespository.CreateMailMessage(from, to, subject, message);
+            var mailMessage = _mailMessageRespository.CreateMailMessage(from, to, subject, body);
 
             _emailSender.SendEmail(mailMessage);
         }
@@ -64,7 +64,7 @@ namespace MikeRobbins.AdvancedEmailAction
 
             if (!string.IsNullOrEmpty(bodyText))
             {
-                WorkflowHistoryItem itemInWorkflow = CreateWorkflowHistoryForItem(emailActionItem, args.DataItem, args.CommentFields["comments"]);
+                WorkflowHistoryItem itemInWorkflow = CreateWorkflowHistoryForItem(emailActionItem, args.DataItem, args.CommentFields["Comments"]);
 
                 bodyText = _workflowHistoryGenerator.CreateWorkflowHistoryHtml(bodyText, itemInWorkflow, emailActionItem,args.DataItem);
             }
