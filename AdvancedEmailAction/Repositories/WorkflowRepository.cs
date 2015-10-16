@@ -10,7 +10,7 @@ namespace MikeRobbins.AdvancedEmailAction.Repositories
 {
     public class WorkflowRepository : IWorkflowRepository
     {
-        public List<WorkflowHistoryItem> GetWorkflowHistory(Item itemInWorkflow, Item emailAction)
+        public List<WorkflowHistoryItem> GetWorkflowHistory(Item itemInWorkflow)
         {
             var workflowHistory = new List<WorkflowHistoryItem>();
 

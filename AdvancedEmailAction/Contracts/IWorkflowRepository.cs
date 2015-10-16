@@ -8,7 +8,7 @@ namespace MikeRobbins.AdvancedEmailAction.Contracts
 {
     public interface IWorkflowRepository
     {
-        List<WorkflowHistoryItem> GetWorkflowHistory(Item itemInWorkflow, Item emailAction);
+        List<WorkflowHistoryItem> GetWorkflowHistory(Item itemInWorkflow);
         WorkflowHistoryItem GetWorkflowHistoryForItem(Item item, StringDictionary comments, Item emailAction);
         string GetItemWorkflowName(Item workflowItem);
         WorkflowState GetWorkflowStateForItem(Item item, Item emailAction);
