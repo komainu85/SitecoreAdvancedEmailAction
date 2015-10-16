@@ -18,6 +18,7 @@ namespace MikeRobbins.AdvancedEmailAction.IoC
             For<IWorkflowRepository>().Use<WorkflowRepository>();
             For<ISiteProvider>().Use<SiteProvider>();
             For<IWorkflowCommentsGenerator>().Use<WorkflowCommentsGenerator>();
+            For<IWorkflowCommandsGenerator>().Use<WorkflowCommandsGenerator>();
         }
     }
 }
