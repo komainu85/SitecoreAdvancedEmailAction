@@ -5,6 +5,7 @@
         Editor,
         Preview,
         Submit,
-        SubmitComment
+        SubmitComment,
+        Workbox
     }
 }

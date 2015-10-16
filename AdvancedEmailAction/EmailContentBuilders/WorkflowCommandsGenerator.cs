@@ -10,7 +10,7 @@ namespace MikeRobbins.AdvancedEmailAction.EmailContentBuilders
     {
         private readonly IContentEditorUrlBuilder _contentEditorUrlBuilder;
 
-        public WorkflowCommandsGenerator( IContentEditorUrlBuilder contentEditorUrlBuilder)
+        public WorkflowCommandsGenerator(IContentEditorUrlBuilder contentEditorUrlBuilder)
         {
             _contentEditorUrlBuilder = contentEditorUrlBuilder;
         }
@@ -35,11 +35,14 @@ namespace MikeRobbins.AdvancedEmailAction.EmailContentBuilders
 
             string editLink = _contentEditorUrlBuilder.GetContentEditorLink(ContentEditorMode.Editor, workflowItem, hostName, ID.NewID);
             string previewLink = _contentEditorUrlBuilder.GetContentEditorLink(ContentEditorMode.Preview, workflowItem, hostName, ID.NewID);
+            string workboxLink = _contentEditorUrlBuilder.GetContentEditorLink(ContentEditorMode.Workbox, null, hostName, ID.NewID);
 
             sb.Append("<li><a href=\"" + editLink + "\">Edit</li>");
             sb.Append("<li><a href=\"" + previewLink + "\">Preview</li>");
-            sb.Append("<li><a href=\"" + "http://" + hostName + "/sitecore/shell/Applications/Workbox/Default.aspx" + "\"/>Workbox</li>");
-
+            sb.Append("<li><a href=\"" + workboxLink + "\"/>Workbox</li>");
+            
+            _contentEditorUrlBuilder.GetContentEditorLink(ContentEditorMode.Workbox, null, hostName, ID.NewID);
+            
             sb.Append("</ul>");
 
             return sb.ToString();
