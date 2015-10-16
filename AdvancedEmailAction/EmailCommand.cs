@@ -1,21 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mail;
-using System.Text;
-using System.Web.Security;
-using MikeRobbins.AdvancedEmailAction.Comparers;
-using MikeRobbins.AdvancedEmailAction.Contacts;
-using MikeRobbins.AdvancedEmailAction.EmailContentBuilders;
+using MikeRobbins.AdvancedEmailAction.Contracts;
 using MikeRobbins.AdvancedEmailAction.Entities;
-using MikeRobbins.AdvancedEmailAction.Mail;
-using MikeRobbins.AdvancedEmailAction.Repositories;
 using Sitecore.Collections;
-using Sitecore.Data;
 using Sitecore.Data.Items;
 using Sitecore.Diagnostics;
-using Sitecore.Shell.Feeds.Sections;
-using Sitecore.Workflows;
 using Sitecore.Workflows.Simple;
 using StructureMap;
 

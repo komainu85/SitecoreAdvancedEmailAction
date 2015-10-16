@@ -1,7 +1,7 @@
 using Sitecore.Data;
 using Sitecore.Data.Items;
 
-namespace MikeRobbins.AdvancedEmailAction.Contacts
+namespace MikeRobbins.AdvancedEmailAction.Contracts
 {
     public interface IContentEditorUrlBuilder
     {

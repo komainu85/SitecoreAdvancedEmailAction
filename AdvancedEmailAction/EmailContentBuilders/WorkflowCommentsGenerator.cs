@@ -1,5 +1,5 @@
 ﻿using System.Text;
-using MikeRobbins.AdvancedEmailAction.Contacts;
+using MikeRobbins.AdvancedEmailAction.Contracts;
 using Sitecore.Collections;
 
 namespace MikeRobbins.AdvancedEmailAction.EmailContentBuilders

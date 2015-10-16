@@ -1,6 +1,6 @@
 ﻿using Sitecore.Collections;
 
-namespace MikeRobbins.AdvancedEmailAction.Contacts
+namespace MikeRobbins.AdvancedEmailAction.Contracts
 {
     public interface IWorkflowCommentsGenerator
     {

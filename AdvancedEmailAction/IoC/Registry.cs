@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MikeRobbins.AdvancedEmailAction.Contacts;
+﻿using MikeRobbins.AdvancedEmailAction.Contracts;
 using MikeRobbins.AdvancedEmailAction.EmailContentBuilders;
 using MikeRobbins.AdvancedEmailAction.Mail;
 using MikeRobbins.AdvancedEmailAction.Providers;

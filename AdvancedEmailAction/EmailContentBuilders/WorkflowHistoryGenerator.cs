@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using MikeRobbins.AdvancedEmailAction.Contacts;
+using MikeRobbins.AdvancedEmailAction.Contracts;
 using MikeRobbins.AdvancedEmailAction.Entities;
 
 namespace MikeRobbins.AdvancedEmailAction.EmailContentBuilders
@@ -13,9 +13,9 @@ namespace MikeRobbins.AdvancedEmailAction.EmailContentBuilders
             _workflowCommentsGenerator = workflowCommentsGenerator;
         }
 
-        public string GenerateWorkflowTableData(List<WorkflowHistoryItem> workflowHistory)
+        public string CreateWorkflowHistoryTable(List<WorkflowHistoryItem> workflowHistory)
         {
-            string htmlWorkflowTable = "<table><tr><th style='text-align: left; padding: 10px;'>Date</th><th style='text-align: left; padding: 10px;'>User</th><th style='text-align: left; padding: 10px;'>Previous State</th><th style='text-align: left; padding: 10px;'>Current State</th><th style='text-align: left; padding: 10px;'>Comment</th></tr>";
+            string htmlWorkflowTable = "<table><tr><th style='text-align: left; padding: 10px;'>Date</th><th style='text-align: left; padding: 10px;'>User</th><th style='text-align: left; padding: 10px;'>Previous State</th><th style='text-align: left; padding: 10px;'>Current State</th><th style='text-align: left; padding: 10px;'>Comments</th></tr>";
 
             foreach (WorkflowHistoryItem workflowItem in workflowHistory)
             {

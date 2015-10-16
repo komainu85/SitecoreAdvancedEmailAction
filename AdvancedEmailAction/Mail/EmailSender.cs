@@ -1,5 +1,5 @@
 using System.Net.Mail;
-using MikeRobbins.AdvancedEmailAction.Contacts;
+using MikeRobbins.AdvancedEmailAction.Contracts;
 
 namespace MikeRobbins.AdvancedEmailAction.Mail
 {
