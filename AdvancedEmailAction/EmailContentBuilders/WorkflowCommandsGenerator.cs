@@ -1,5 +1,6 @@
 using System.Text;
 using MikeRobbins.AdvancedEmailAction.Contracts;
+using MikeRobbins.AdvancedEmailAction.Enums;
 using Sitecore.Data;
 using Sitecore.Data.Items;
 using Sitecore.Workflows;

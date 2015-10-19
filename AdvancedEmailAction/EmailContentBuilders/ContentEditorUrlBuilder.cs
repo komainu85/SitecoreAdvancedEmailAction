@@ -1,8 +1,9 @@
 ﻿using MikeRobbins.AdvancedEmailAction.Contracts;
+using MikeRobbins.AdvancedEmailAction.Enums;
 using Sitecore.Data;
 using Sitecore.Data.Items;
 
-namespace MikeRobbins.AdvancedEmailAction
+namespace MikeRobbins.AdvancedEmailAction.EmailContentBuilders
 {
     public class ContentEditorUrlBuilder : IContentEditorUrlBuilder
     {

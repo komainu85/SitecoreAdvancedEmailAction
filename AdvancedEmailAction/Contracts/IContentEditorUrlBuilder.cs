@@ -1,3 +1,4 @@
+using MikeRobbins.AdvancedEmailAction.Enums;
 using Sitecore.Data;
 using Sitecore.Data.Items;
 

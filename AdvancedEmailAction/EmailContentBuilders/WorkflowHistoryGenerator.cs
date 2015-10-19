@@ -15,24 +15,22 @@ namespace MikeRobbins.AdvancedEmailAction.EmailContentBuilders
 
         public string CreateWorkflowHistoryTable(List<WorkflowHistoryItem> workflowHistory)
         {
-            string htmlWorkflowTable = "<table><tr><th style='text-align: left; padding: 10px;'>Date</th><th style='text-align: left; padding: 10px;'>User</th><th style='text-align: left; padding: 10px;'>Previous State</th><th style='text-align: left; padding: 10px;'>Current State</th><th style='text-align: left; padding: 10px;'>Comments</th></tr>";
+            string row = "";
 
             foreach (WorkflowHistoryItem workflowItem in workflowHistory)
             {
                 var comments = _workflowCommentsGenerator.CreateWorkflowComments(workflowItem.Comments);
 
-                htmlWorkflowTable += "<tr>";
-                htmlWorkflowTable += "<td style='text-align: left; padding: 10px;'>" + workflowItem.Updated.ToString("dd MMMM yyyy, HH:mm:ss") + "</td>";
-                htmlWorkflowTable += "<td style='text-align: left; padding: 10px;'>" + workflowItem.Username + "</td>";
-                htmlWorkflowTable += "<td style='text-align: left; padding: 10px;'>" + workflowItem.PreviousState + "</td>";
-                htmlWorkflowTable += "<td style='text-align: left; padding: 10px;'>" + workflowItem.WorkflowState.DisplayName + "</td>";
-                htmlWorkflowTable += "<td style='text-align: left; padding: 10px;'>" + comments + "</td>";
-                htmlWorkflowTable += "</tr>";
+                row += "<tr>";
+                row += "<td style='padding: 10px;'>" + workflowItem.Updated.ToString("dd MMMM yyyy, HH:mm:ss") + "</td>";
+                row += "<td style='padding: 10px;'>" + workflowItem.Username + "</td>";
+                row += "<td style='padding: 10px;'>" + workflowItem.PreviousState + "</td>";
+                row += "<td style='padding: 10px;'>" + workflowItem.WorkflowState.DisplayName + "</td>";
+                row += "<td style='padding: 10px;'>" + comments + "</td>";
+                row += "</tr>";
             }
-
-            htmlWorkflowTable += "</table>";
-
-            return htmlWorkflowTable;
+            
+            return row;
         }
     }
 }

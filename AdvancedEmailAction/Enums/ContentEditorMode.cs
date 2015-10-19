@@ -1,4 +1,4 @@
-﻿namespace MikeRobbins.AdvancedEmailAction
+﻿namespace MikeRobbins.AdvancedEmailAction.Enums
 {
     public enum ContentEditorMode
     {

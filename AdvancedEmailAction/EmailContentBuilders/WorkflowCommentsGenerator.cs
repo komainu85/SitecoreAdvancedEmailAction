@@ -12,7 +12,7 @@ namespace MikeRobbins.AdvancedEmailAction.EmailContentBuilders
 
             foreach (var comment in comments)
             {
-                sb.Append("<span style='font-weight:bold;'>" + comment.Key  +"</span> ");
+                sb.Append("<span class='comment'>" + comment.Key  +"</span> ");
                 sb.Append(comment.Value + "</br>");
             }
 
