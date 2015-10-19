@@ -24,7 +24,6 @@ namespace MikeRobbins.AdvancedEmailAction.EmailContentBuilders
                     return ("http://" + hostName.Replace("http://","") + "/sitecore/shell/feeds/action.aspx?c=Workflow&id=" + item.ID.ToString() + "&la=" + item.Language.Name + "&v=" + item.Version.Number.ToString() + "&cmd=" + commandId.ToString() + "&nc=1");
                 case ContentEditorMode.Workbox:
                     return ("http://" + hostName.Replace("http://", "") + "/sitecore/shell/Applications/Workbox/Default.aspx");
-
             }
             return "";
         }
