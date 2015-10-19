@@ -7,7 +7,7 @@ namespace MikeRobbins.AdvancedEmailAction.Repositories
     {
         public MailMessage CreateMailMessage(string from, string to, string subject, string message)
         {
-            var mailMessage = new MailMessage(@from, to)
+            var mailMessage = new MailMessage(from, to)
             {
                 Subject = subject,
                 Body = message,

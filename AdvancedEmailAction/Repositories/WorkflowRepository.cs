@@ -64,7 +64,7 @@ namespace MikeRobbins.AdvancedEmailAction.Repositories
 
             var itemWorkflow = item.Database.WorkflowProvider.GetWorkflow(item);
 
-            return itemWorkflow.GetState(nextStateId.ToString());
+            return itemWorkflow.GetState(nextStateId);
         }
     }
 }
