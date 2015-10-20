@@ -93,10 +93,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="serialization\master\sitecore\templates\User Defined\MikeRobbins\WorkflowActions.item" />
+    <None Include="serialization\master\sitecore\templates\User Defined\MikeRobbins\WorkflowActions\Advanced Email Action.item" />
+    <None Include="serialization\master\sitecore\templates\User Defined\MikeRobbins\WorkflowActions\Advanced Email Action\Data.item" />
+    <None Include="serialization\master\sitecore\templates\User Defined\MikeRobbins\WorkflowActions\Advanced Email Action\Data\Parameters.item" />
+    <None Include="serialization\master\sitecore\templates\User Defined\MikeRobbins\WorkflowActions\Advanced Email Action\Data\Type.item" />
+    <None Include="serialization\master\sitecore\templates\User Defined\MikeRobbins\WorkflowActions\Advanced Email Action\Email.item" />
+    <None Include="serialization\master\sitecore\templates\User Defined\MikeRobbins\WorkflowActions\Advanced Email Action\Email\Body.item" />
+    <None Include="serialization\master\sitecore\templates\User Defined\MikeRobbins\WorkflowActions\Advanced Email Action\Email\From.item" />
+    <None Include="serialization\master\sitecore\templates\User Defined\MikeRobbins\WorkflowActions\Advanced Email Action\Email\Host name.item" />
+    <None Include="serialization\master\sitecore\templates\User Defined\MikeRobbins\WorkflowActions\Advanced Email Action\Email\Subject.item" />
+    <None Include="serialization\master\sitecore\templates\User Defined\MikeRobbins\WorkflowActions\Advanced Email Action\Email\To.item" />
+    <None Include="serialization\master\sitecore\templates\User Defined\MikeRobbins\WorkflowActions\Advanced Email Action\__Standard Values.item" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Readers\" />
-    <Folder Include="WorkflowEmailTemplates\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

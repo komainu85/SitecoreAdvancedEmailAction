@@ -1,0 +1,96 @@
+----item----
+version: 1
+id: {1177C67D-E7B1-4054-88FA-CCA81C501D30}
+database: master
+path: /sitecore/templates/User Defined/MikeRobbins/WorkflowActions/Advanced Email Action/__Standard Values
+parent: {8CCAE0C2-DC57-49C1-8BBA-A585CEC09110}
+name: __Standard Values
+master: {00000000-0000-0000-0000-000000000000}
+template: {8CCAE0C2-DC57-49C1-8BBA-A585CEC09110}
+templatekey: Advanced Email Action
+
+----version----
+language: en
+version: 1
+revision: 97c3ad66-7648-41e7-93c5-4ad5b812f8f0
+
+----field----
+field: {C31AEE44-0A3E-42BC-8FCB-4383A655762A}
+name: Body
+key: body
+content-length: 943
+
+<style type="text/css">
+.comment{font-weight:bold}
+</styles>
+
+<h1>$itemtitle$ - $siteName$</h1>
+<hr>
+<p>$itemdatetime$</p>
+<p>
+$itemtitle$ item has been moved to the $itemworkflowstate$ state of the $itemworkflowname$ workflow by $itemuser$ with the following comment:
+</p>
+<ul>
+    <li>$itemcomment$</li>
+</ul>
+<p>
+$itempath$,<br>
+$itemlanguage$, Version $itemversion$
+</p>
+<h2>What do you want to do with $itemtitle$:</h2>
+$commands$
+<h2>Workflow history:</h2>
+<table>
+    <tbody>
+        <tr>
+            <th style="text-align: left; padding: 10px;">Date</th>
+            <th style="text-align: left; padding: 10px;">User</th>
+            <th style="text-align: left; padding: 10px;">Previous State</th>
+            <th style="text-align: left; padding: 10px;">Current State</th>
+            <th style="text-align: left; padding: 10px;">Comments</th>
+        </tr>
+$workflowhistorytable$
+    </tbody>
+</table>
+----field----
+field: {52807595-0F8F-4B20-8D2A-CB71D28C6103}
+name: __Owner
+key: __owner
+content-length: 14
+
+sitecore\admin
+----field----
+field: {25BED78C-4957-4165-998A-CA1B52F67497}
+name: __Created
+key: __created
+content-length: 16
+
+20151016T130613Z
+----field----
+field: {5DD74568-4D4B-44C1-B513-0AF5F4CDA34F}
+name: __Created by
+key: __created by
+content-length: 14
+
+sitecore\admin
+----field----
+field: {8CDC337E-A112-42FB-BBB4-4143751E123F}
+name: __Revision
+key: __revision
+content-length: 36
+
+97c3ad66-7648-41e7-93c5-4ad5b812f8f0
+----field----
+field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
+name: __Updated
+key: __updated
+content-length: 16
+
+20151019T084810Z
+----field----
+field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
+name: __Updated by
+key: __updated by
+content-length: 14
+
+sitecore\admin
