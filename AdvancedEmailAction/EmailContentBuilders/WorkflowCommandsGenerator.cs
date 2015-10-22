@@ -29,7 +29,7 @@ namespace MikeRobbins.AdvancedEmailAction.EmailContentBuilders
             foreach (var command in commands)
             {
                 var submit = _contentEditorUrlBuilder.GetContentEditorLink(ContentEditorMode.Submit, workflowItem, hostName, new ID(command.CommandID));
-                var submitComment = _contentEditorUrlBuilder.GetContentEditorLink(ContentEditorMode.Submit, workflowItem, hostName, new ID(command.CommandID));
+                var submitComment = _contentEditorUrlBuilder.GetContentEditorLink(ContentEditorMode.SubmitComment, workflowItem, hostName, new ID(command.CommandID));
 
                 sb.Append("<li><a href=\"" + submit + "\">" + command.DisplayName + "</a> or <a href=\"" + submitComment + "\">" + command.DisplayName + " & comment</a></li>");
             }
